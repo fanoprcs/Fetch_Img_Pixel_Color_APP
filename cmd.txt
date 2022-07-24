@@ -1,0 +1,9 @@
+cd C:\Users\user\Python\img_pixel
+python app.py
+
+
+
+
+
+C:\Users\user\Python\img_pixel\templates\home.html
+

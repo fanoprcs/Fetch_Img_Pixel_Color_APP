@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    <canvas id="canvas" width="300" height="300" ></canvas>
+    <img id="image" />
+    <img id="image2" />
+</body>
+</html>
+
+<script>
+  var canvas = document.getElementById('canvas'),
+      ctx = canvas.getContext('2d');
+  for (var i=0;i<60;i++){
+    for (var j=0;j<60;j++){
+        ctx.fillStyle = 'rgb(' + Math.floor(255-4.25*i) + ',' + Math.floor(255-4.25*j) + ',' + '200' +')';
+        ctx.fillRect(j*5,i*5,5,5);
+    }
+  }
+
+  var image = document.getElementById('image'),
+      image2 = document.getElementById('image2');
+  image.src = canvas.toDataURL();
+  image2.src = canvas.toDataURL('image/jpeg');
+</script>
+<a href="#" download="dl.png" onclick="this.href=canvas.toDataURL();" >下載</a>

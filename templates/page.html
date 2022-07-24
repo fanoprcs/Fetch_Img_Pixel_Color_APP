@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--html:5 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查詢圖片上的像素顏色代碼</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <style> form{ display : inline;} 
+        a{
+            font-family: monospace;
+            font-size: 24px;
+        }
+        .choose_canvas{
+            margin-left : 15px;
+            border-width:1px;
+            border-style:solid;
+        }
+        .show_canvas{
+            border-width:1px;
+            border-style:solid;
+        }
+        #sitebody{
+         font-size:13px;
+         background: black;
+        }
+        
+        #content{
+         float:left;
+        }
+        #sidebar_right{
+         margin-top:10px;
+         margin-left:15px;
+         float:left;
+        }
+        .clearfix{
+           clear:both;
+        }
+        html, body {
+          height: 100%; /*外層高度100%*/
+          margin: 0;
+        }
+        .wrapper {
+          min-height: calc(100% - 100px);
+
+        }
+        .footer{
+              height: 100px; /*設定footer本身高度*/
+              text-align: center;
+        }
+    </style> <!-- 不知道為甚麼放在css不行,可能是flask的原因 -->
+</head>
+    
+<body class="Main_theme">
+    <div class = 'wrapper'>
+        <h2>查詢圖片上的像素顏色代碼(寬超過960或高超過540會等比將圖片縮小)</h2>
+         <div id = 'content'>
+            <img id = "imageid" src = "{{ url_for('img_feed') }}" onclick= "setPoint()" style = "border-width:0.01px;border-style:solid; border-color: gray;"/>
+        </div>
+        <div id = "sidebar_right">
+             <form action="{{ url_for('choose_file')}}" method="POST" enctype = "multipart/form-data">
+                <input type = "file" size = "30" name = "photo"/><br>
+                <input type = "submit" value = "上傳圖片" style = "margin-top:15px;"  class = "button"/>
+            </form><br><br>
+            <a> Current Color: </a>
+            <a id = "hint_current" style = "color : gray; font-family: monospace;">將游標移至圖片上以查看顏色代碼 </a>
+            <table id = "current_table" style = "display: none; ">
+                <tbody>
+                    <tr>
+                        <td>
+                            <canvas class = 'show_canvas' width = '100' height = '100' id = "canva_show"></canvas>
+                        </td>
+                        <td>
+                            <a> X: </a><a id = "xxx">0</a><a> , Y: </a><a id = "yyy">0</a><br>
+                            <a>RGB(</a><a id = "rr">0</a><a>, </a><a id = "gg">0</a><a>, </a><a id = "bb">0</a><a>)</a><br>
+                            <a>HEX #</a><a id = "hh">00</a><a id = "ee">00</a><a id = "xx">00</a><br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <a> Choose Color: </a>
+            <a id = "hint_choose" style = "color : gray; font-family: monospace; ">請用滑鼠點擊欲查看之位置 </a>
+            <table id = "choose_table" style = "display: none; ">
+                <tbody>
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                        <td>
+                            <canvas class = 'show_canvas' width = '100' height = '100' id = "canva_choose"></canvas>
+                        </td>
+                        <td>
+                            <a> X: </a><a id = "choose_px">0</a><a> , Y: </a><a id = "choose_py">0</a><br>
+                            <a>RGB(</a><a id = "choose_r">0</a><a>, </a><a id = "choose_g">0</a><a>, </a><a id = "choose_b">0</a><a>)</a><br>
+                            <a>HEX #</a><a id = "choose_h">00</a><a id = "choose_e">00</a><a id = "choose_x">00</a><br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class= 'clearfix'></div>
+        <div id = 'past_data'>
+            <h2>點擊查看歷史顏色:</h2> 
+        </div >
+        <a style = "color: gray;">--------------------------------</a><br>
+        <table id = "selected_table" style = "display: none; ">
+            <tbody>
+                <tr>
+                    <td>
+                        <canvas class = 'show_canvas' width = '100' height = '100' id = "selected_canvas"></canvas>
+                    </td>
+                    <td>
+                        <a> X: </a><a id = "selected_px">0</a><a> , Y: </a><a id = "selected_py">0</a><br>
+                        <a>RGB(</a><a id = "selected_r">0</a><a>, </a><a id = "selected_g">0</a><a>, </a><a id = "selected_b">0</a><a>)</a><br>
+                        <a>HEX #</a><a id = "selected_h">00</a><a id = "selected_e">00</a><a id = "selected_x">00</a><br>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer class = "footer">
+        <a href="mailto:fanoprcs@gmail.com"><i class = "fa fa-envelope fa-2x" style="color: rgb(0, 0, 0);"></i></a>
+        &emsp;
+        <a href="https://github.com/fanoprcs"><i class="fab fa-github fa-2x" style="color: rgb(0, 0, 0);"></i></a>
+        <br>
+        <font style="font-size: 2vmin; ">Copyright © 2022 Ray Lee. All rights reserved.</font>
+    </footer>
+</body>
+</html>
+<script src = "{{ url_for('static', filename='implement.js') }}"></script>
