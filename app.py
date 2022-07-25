@@ -1,10 +1,6 @@
 import numpy as np
-import os, cv2
-import math
 from PIL import Image
-import flask, webbrowser
-from bs4 import BeautifulSoup
-import requests
+import flask, webbrowser, cv2
 app = flask.Flask(__name__)
 app.secret_key = "secret key"
 
