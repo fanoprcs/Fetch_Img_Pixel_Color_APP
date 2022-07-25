@@ -9,6 +9,6 @@
 遇到的坑: 
 1. 推上 heroku 時，requirements 中的 opencv 必須寫成 opencv-contrib-python-headless，否則會出錯
 2. 不確定原因，但如果 flask 指定版本為 1.1.2 會出現錯誤，取消指定即可成功
-3. 不能自行分配 Port
+3. 記得不要自行分配 Port，否則會出錯
 
 網址: https://fetch-img-pixel-color.herokuapp.com/
