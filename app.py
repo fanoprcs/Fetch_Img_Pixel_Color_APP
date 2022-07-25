@@ -39,12 +39,15 @@ def choose_file():
         file = flask.request.files['photo']
         if file.filename == '':
             return flask.render_template('page.html')
-        file = Image.open(file.stream).convert('RGB')
-        file = cv2.flip(np.array(file), 1)
-        show_pic = cv2.cvtColor(file, cv2.COLOR_RGB2BGR)
-        return flask.render_template('page.html')
+        try:
+            file = Image.open(file.stream).convert('RGB')
+            file = cv2.flip(np.array(file), 1)
+            show_pic = cv2.cvtColor(file, cv2.COLOR_RGB2BGR)
+            return flask.render_template('page.html')
+        except:
+            return flask.render_template('page.html', show_status_area = '檔案格式不支援')
     
-    return flask.render_template('page.html', )
+    return flask.render_template('page.html')
 
 if __name__ == "__main__":
     port = 5000
