@@ -9,7 +9,7 @@ def home():
     return flask.render_template('page.html')
 
 @app.route("/get_RGB", methods=["POST"])
-def get_type():
+def get_RGB():
     global type 
     type = flask.request.values.get('RGB')
     return flask.render_template('page.html')
