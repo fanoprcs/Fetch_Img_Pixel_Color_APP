@@ -1,4 +1,4 @@
-# 獲取照片上像素點的顏色
+# 查詢圖片上像素點的顏色
 
 ![image](https://user-images.githubusercontent.com/96753049/180815259-96ec9a7f-0d65-4b33-af0e-9225b0d65f2c.png)
 
