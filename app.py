@@ -6,14 +6,9 @@ app.secret_key = "secret key"
 
 @app.route('/')
 def home():
+    global show_pic
+    show_pic = None
     return flask.render_template('page.html')
-
-@app.route("/get_RGB", methods=["POST"])
-def get_RGB():
-    global type 
-    type = flask.request.values.get('RGB')
-    return flask.render_template('page.html')
-
     
 @app.route('/img_feed')
 def img_feed():
@@ -39,11 +34,12 @@ def choose_file():
         file = flask.request.files['photo']
         if file.filename == '':
             return flask.render_template('page.html')
+        str = file.filename
         try:
             file = Image.open(file.stream).convert('RGB')
             file = cv2.flip(np.array(file), 1)
             show_pic = cv2.cvtColor(file, cv2.COLOR_RGB2BGR)
-            return flask.render_template('page.html')
+            return flask.render_template('page.html', show_status_area = str)
         except:
             return flask.render_template('page.html', show_status_area = '檔案格式不支援')
     
