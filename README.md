@@ -17,7 +17,7 @@
   * js 偵測出錯
   * html 顯示錯誤 + js 偵測出錯
 
-* 解決方案<>
+* 解決方案  
   需要重新整理網頁推送資料才會正確。
 
 網址: https://fetch-img-pixel-color.herokuapp.com/
