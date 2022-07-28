@@ -21,4 +21,10 @@
   * 在Procfile中在 web gunicorn app:app 後面加上 --workers=1，
   變成 web gunicorn app:app --workers=1，即可正常運作了，原本方式錯誤的原因在於，因為 Heroku 預設的處理方式會有 web 和 gunicorn 兩種方式，所以有兩個process，每次選擇檔案並上傳可能會選擇到不同的 process，因此兩個 process 中存儲到的 global 變數可能會不一致，導致會有上傳的檔案有機率跟當前偵測到的 show_pic 圖片不同，因此發生錯誤情形，將 --workers=1 則是強制 Heroku 只能使用一個 process 來接受程式，因此能解決該問題，更好的方式則應該將上傳的照片用其他方式紀錄，不要使用 global 方式。
 
+
+補充: 直接用 app.run 是屬於開發環境下的測試方式，
+如果要將程式正式部屬到 server 上的話，可以選擇的一個方式是將 app.run 改為:
+ from waitress import serve
+ serve(app, host="0.0.0.0", port=port)
+
 網址: https://fetch-img-pixel-color.herokuapp.com/
