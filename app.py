@@ -18,7 +18,7 @@ def img_feed():
             tmp = cv2.resize(tmp, None, fx = 540 /tmp.shape[0],fy= 540 /tmp.shape[0],interpolation=cv2.INTER_LINEAR)
         if tmp.shape[1] >960: #reshape by rate
             tmp = cv2.resize(tmp, None, fx = 960 /tmp.shape[1],fy= 960 /tmp.shape[1],interpolation=cv2.INTER_LINEAR)
-        ret, buffer = cv2.imencode('.jpg', cv2.flip(tmp, 1))
+        ret, buffer = cv2.imencode('.jpg', tmp)
         show = buffer.tobytes()
     except:
         tmp = cv2.imread('static/preshow.png')
@@ -29,15 +29,15 @@ def img_feed():
     
 @app.route("/choose_file", methods=["POST"])
 def choose_file():
-    global show_pic, file
+    global show_pic
     if flask.request.method == "POST":
         file = flask.request.files['photo']
         if file.filename == '':
             return flask.render_template('page.html')
-        str = file.filename
         try:
+            str = file.filename
             file = Image.open(file.stream).convert('RGB')
-            file = cv2.flip(np.array(file), 1)
+            file = np.array(file)
             show_pic = cv2.cvtColor(file, cv2.COLOR_RGB2BGR)
             return flask.render_template('page.html', show_status_area = str)
         except:
