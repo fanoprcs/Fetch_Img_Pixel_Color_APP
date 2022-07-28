@@ -37,8 +37,7 @@ def choose_file():
         try:
             str = file.filename
             file = Image.open(file.stream).convert('RGB')
-            file = np.array(file)
-            show_pic = cv2.cvtColor(file, cv2.COLOR_RGB2BGR)
+            show_pic = cv2.cvtColor(np.array(file), cv2.COLOR_RGB2BGR)
             return flask.render_template('page.html', show_status_area = str)
         except:
             return flask.render_template('page.html', show_status_area = '檔案格式不支援')
