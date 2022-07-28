@@ -18,7 +18,7 @@
   * html 顯示錯誤 + js 偵測出錯
 
 * 解決方式
-  * 在Procfile中在 web gunicorn app:app 後面加上 --workers==1，
-  變成 web gunicorn app:app --workers==1，能正常運作了。
+  * 在Procfile中在 web gunicorn app:app 後面加上 --workers=1，
+  變成 web gunicorn app:app --workers=1，能正常運作了。
 
 網址: https://fetch-img-pixel-color.herokuapp.com/
