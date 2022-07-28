@@ -24,7 +24,8 @@
 
 補充: 直接用 app.run 是屬於開發環境下的測試方式，
 如果要將程式正式部屬到 server 上的話，可以選擇的一個方式是將 app.run 改為:  
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=port)
+				<pre><code>from waitress import serve
+    serve(app)</code></pre>
+其中預設端口 port = 8080
 
 網址: https://fetch-img-pixel-color.herokuapp.com/
