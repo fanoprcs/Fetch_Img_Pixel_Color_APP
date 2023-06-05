@@ -27,3 +27,8 @@
 其中 server 的預設端口 port = 8080。
 
 **網址: https://fetch-img-pixel-color.herokuapp.com/**
+
+# 更新
+因為 Heroku 終止免費部屬 APP 的方案，改成使用 Fly.io 部屬，直接照原本的 requirements.txt 內容部屬會出錯，需要將 numpy 取消指定版本才可以部屬。
+https://fetch-img-color.fly.dev/
+
