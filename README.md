@@ -26,9 +26,13 @@
     serve(app)</code></pre>
 其中 server 的預設端口 port = 8080。
 
-**網址: https://fetch-img-pixel-color.herokuapp.com/**
+**網址(已不可用): https://fetch-img-pixel-color.herokuapp.com/**
 
 # 更新
-因為 Heroku 終止免費部屬 APP 的方案，改成使用 Fly.io 部屬，直接照原本的 requirements.txt 內容部屬會出錯，需要將 numpy 取消指定版本才可以部屬。
-https://fetch-img-color.fly.dev/
+因為 Heroku 終止免費部屬 APP 的方案，改成使用 Fly.io 部屬，直接照原本的 requirements.txt 內容部屬會出錯，需要將 numpy 取消指定版本才可以部屬。 
+並且 Fly.io 是採取 docker 的方式來運行，因此運行一個 App 時會有許多容器並行運作，導致原先的問題出現。
+* 解決方式
+  * 在命令列打 flyctl scale count 1，來限制只能用一個容器執行，成功排除錯誤情況。
+
+**網址: https://fetch-img-px-color.fly.dev/**
 
